@@ -1,11 +1,36 @@
 /* See LICENSE file for copyright and license details. */
 
+/* v02v02's build of st.
+ *
+ * Tweaks made:
+ * - Changed the value of the variable "*font". [config.def.h]
+ *   (This is to change the font of st to FiraCode.)
+ *
+ * - Changed values in the "resources" array. [config.def.h]
+ *   (This is to make the terminal background dark and to make the cursor white.)
+ *
+ * - Changed the value of the variable "cursorshape" to "6". [config.def.h]
+ *   (This makes the cursor shape on st a bar.)
+ *
+ *
+ * Patches applied:
+ * - st-alpha-20240814-a0274bc.diff
+ *   (Adds transparency to the terminal if you have a compositor on.)
+ * - st-scrollback-0.9.2.diff
+ *   (Adds the ability to scroll through output on the terminal. *Only with Shift + Pgup/Pgdn.)
+ * - st-scrollback-mouse-0.9.2.diff
+ *   (An addon to st-scrollback, you can now use the scroll wheel on the mouse + Shift.)
+ * - st-xresources-20230320-45a15676.diff
+ *   (Configures the colors outputted by st to work with Xresources.)
+ *
+ */
+
 /*
  * appearance
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
+static char *font = "FiraCode:pixelsize=12:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
@@ -53,7 +78,7 @@ int allowwindowops = 0;
  * near minlatency, but it waits longer for slow updates to avoid partial draw.
  * low minlatency will tear/flicker more, as it can "detect" idle too early.
  */
-static double minlatency = 2;
+static double minlatency = 8;
 static double maxlatency = 33;
 
 /*
@@ -94,7 +119,7 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 /* bg opacity */
-float alpha = 0.8;
+float alpha = 0.75;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
@@ -144,7 +169,7 @@ static unsigned int defaultrcs = 257;
  * 6: Bar ("|")
  * 7: Snowman ("☃")
  */
-static unsigned int cursorshape = 2;
+static unsigned int cursorshape = 6;
 
 /*
  * Default columns and rows numbers
@@ -194,9 +219,9 @@ ResourcePref resources[] = {
 		{ "color13",      STRING,  &colorname[13] },
 		{ "color14",      STRING,  &colorname[14] },
 		{ "color15",      STRING,  &colorname[15] },
-		{ "background",   STRING,  &colorname[259] },
-		{ "foreground",   STRING,  &colorname[258] },
-		{ "cursorColor",  STRING,  &colorname[256] },
+		{ "background",   STRING,  &colorname[256] },
+		{ "foreground",   STRING,  &colorname[257] },
+		{ "cursorColor",  STRING,  &colorname[258] },
 		{ "termname",     STRING,  &termname },
 		{ "shell",        STRING,  &shell },
 		{ "minlatency",   INTEGER, &minlatency },
@@ -243,7 +268,7 @@ static Shortcut shortcuts[] = {
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
 	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
-    { ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
+	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
 };
 
 /*
