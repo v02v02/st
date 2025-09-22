@@ -4,7 +4,8 @@
  *
  * Tweaks made:
  * - Changed the value of the variable "*font". [config.def.h]
- *   (This is to change the font of st to FiraCode.)
+ *   (This is to change the font of st to FiraCodeNerdFont.)
+ *   (The font also adds all of the glyphs from the Nerd Font icon pack.)
  *
  * - Changed values in the "resources" array. [config.def.h]
  *   (This is to make the terminal background dark and to make the cursor white.)
@@ -30,7 +31,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "FiraCode:pixelsize=12:antialias=true:autohint=true";
+static char *font = "FiraCodeNerdFont:pixelsize=12:antialias=true:autohint=true";
+//static char *font = "JetBrainsMono Nerd Font:pixelsize=12:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
@@ -159,7 +161,7 @@ static const char *colorname[] = {
  */
 unsigned int defaultfg = 258;
 unsigned int defaultbg = 259;
-unsigned int defaultcs = 256;
+unsigned int defaultcs = 7;
 static unsigned int defaultrcs = 257;
 
 /*
